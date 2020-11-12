@@ -13,7 +13,7 @@ module.exports = {
       }], {});
     */
 
-   return queryInterface.bulkInsert('ingredients', [
+   return queryInterface.bulkInsert('Ingredients', [
     { recipeId: 12, amount: 3, measurementUnitId: 12, foodStuff: 'Thai green curry paste', createdAt: new Date(), updatedAt: new Date() },
     { recipeId: 12, amount: 400, measurementUnitId: 6, foodStuff: 'coconut milk', createdAt: new Date(), updatedAt: new Date() },
     { recipeId: 12, amount: 150, measurementUnitId: 4, foodStuff: 'cooked prawns', createdAt: new Date(), updatedAt: new Date() },
@@ -98,5 +98,6 @@ module.exports = {
       return queryInterface.bulkDelete('People', null, {});
     */
   //  return queryInterface.bulkDelete('ingredients', null, {});
-  }
+  return queryInterface.bulkDelete('Ingredients', null, {}); 
+}
 };

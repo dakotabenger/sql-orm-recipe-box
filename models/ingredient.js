@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const ingredients = sequelize.define('ingredients', {
+  const Ingredient = sequelize.define('Ingredient', {
     amount: DataTypes.NUMERIC,
     measurementUnitId: DataTypes.INTEGER,
     foodStuff: {
@@ -11,10 +11,10 @@ module.exports = (sequelize, DataTypes) => {
     },
     recipeId: DataTypes.INTEGER
   }, {});
-  ingredients.associate = function(models) {
-    ingredients.belongsTo(models.Recipes, {foreignKey:"recipeId"})
-    ingredients.hasOne(models.MeasurementUnit, {foreignKey: "measurementUnitId"})
+ Ingredient.associate = function(models) {
+    Ingredient.belongsTo(models.Recipe, {foreignKey:"recipeId"})
+    Ingredient.belongsTo(models.MeasurementUnit, {foreignKey: "measurementUnitId"})
 
   };
-  return ingredients;
+  return Ingredient;
 };

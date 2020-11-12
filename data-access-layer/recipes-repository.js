@@ -1,10 +1,10 @@
 const { Op } = require('sequelize');
-let {Recipes, Instruction, ingredients, MeasurementUnit} = require('../models');
+let {Recipe, Instruction, Ingredient, MeasurementUnit} = require('../models');
 let moduleError;
 
 try {
   const db = require('../models');
-  ({ Recipes, Instruction, ingredients, MeasurementUnit } = db);
+  ({ Recipe, Instruction, Ingredient, MeasurementUnit } = db);
   if (Recipe === undefined) {
     moduleError = 'It looks like you need to generate the Recipe model.';
   }
@@ -34,7 +34,7 @@ async function getTenNewestRecipes() {
   // });
   //
   // Docs: https://sequelize.org/master/class/lib/model.js~Model.html#static-method-findAll
-  return await Recipes.findAll({limit:10})
+  return await Recipe.findAll({limit:10})
 }
 
 async function getRecipeById(id) {
@@ -73,7 +73,7 @@ async function getRecipeById(id) {
   // Docs: https://sequelize.org/v5/manual/models-usage.html#eager-loading
   //       https://sequelize.org/v5/manual/models-usage.html#nested-eager-loading
 
-  return await Recipes.findByPk(id, {include: [Instruction,ingredients,MeasurementUnit]
+  return await Recipe.findByPk(id, {include: [Instruction,{model: Ingredient, include:MeasurementUnit}]
   })
 }
 
@@ -83,7 +83,9 @@ async function deleteRecipe(id) {
   // saw in the video.
   //
   // Docs: https://sequelize.org/master/class/lib/model.js~Model.html#instance-method-destroy
-  let recipe = await Recipes.destroy({where : {id:id}});
+  // let recipe = await Recipe.destroy({where : {id:id}});
+  let recipe = await Recipe.findByPk(id);
+  await recipe.destroy();
   return recipe;
 }
 
@@ -92,7 +94,7 @@ async function createNewRecipe(title) {
   // return it.
   //
   // Docs: https://sequelize.org/v5/manual/instances.html#creating-persistent-instances
-  return await Recipes.create({title})
+  return await Recipe.create({title})
 }
 
 async function searchRecipes(term) {
@@ -100,7 +102,7 @@ async function searchRecipes(term) {
   // given term in its title
   //
   // Docs: https://sequelize.org/v5/manual/querying.html
-  return await Recipes.find({where : {[Op.substring]:term}})
+  return await Recipe.find({where : {[Op.substring]:term}})
 }
 
 

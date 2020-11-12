@@ -1,5 +1,5 @@
 const { Op } = require('sequelize');
-let {ingredients} = require("../models");
+let {Ingredient} = require("../models");
 let moduleError;
 
 try {
@@ -21,7 +21,7 @@ try {
 
 
 async function createNewIngredient(amount, recipeId, measurementUnitId, foodStuff) {
-  let newIngredient = await ingredients.create({amount,recipeId,measurementUnitId,foodStuff})
+  let newIngredient = await Ingredient.create({amount,recipeId,measurementUnitId,foodStuff})
   console.log(newIngredient)
 }
 
