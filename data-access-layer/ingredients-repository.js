@@ -1,5 +1,5 @@
 const { Op } = require('sequelize');
-let Ingredient;
+let {ingredients} = require("../models");
 let moduleError;
 
 try {
@@ -21,9 +21,8 @@ try {
 
 
 async function createNewIngredient(amount, recipeId, measurementUnitId, foodStuff) {
-  // Use the create method of the Ingredient object to create a new object.
-  //
-  // Docs: https://sequelize.org/v5/manual/instances.html#creating-persistent-instances
+  let newIngredient = await ingredients.create({amount,recipeId,measurementUnitId,foodStuff})
+  console.log(newIngredient)
 }
 
 
