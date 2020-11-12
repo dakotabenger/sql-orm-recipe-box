@@ -1,4 +1,4 @@
-let MeasurementUnit;
+let {MeasurementUnit} = require('../models')
 let moduleError;
 
 try {
