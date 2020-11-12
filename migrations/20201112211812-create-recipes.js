@@ -1,28 +1,30 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('MeasurementUnits', {
+    return queryInterface.createTable('Recipes', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      name: {
-        type: Sequelize.STRING(20),
+      title: {
+        type: Sequelize.STRING(200),
         allowNull: false
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Date.now(),
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
+        defaultValue: Date.now()
       }
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('MeasurementUnits');
+    return queryInterface.dropTable('Recipes');
   }
 };
